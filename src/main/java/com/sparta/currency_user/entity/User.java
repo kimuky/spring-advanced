@@ -3,8 +3,8 @@ package com.sparta.currency_user.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-@Entity
 @Getter
+@Entity(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -8,8 +8,9 @@ import lombok.Getter;
 
 import java.math.BigDecimal;
 
-@Entity
+
 @Getter
+@Entity(name = "currency")
 public class Currency {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
