@@ -4,8 +4,6 @@ import com.sparta.currency_user.status.UserCurrencyStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.math.BigDecimal;
-
 @Getter
 @Entity(name = "user_currency")
 public class UserCurrency extends BaseEntity {
@@ -22,16 +20,16 @@ public class UserCurrency extends BaseEntity {
     private Currency currency;
 
     private Long amountIntKrw;
-    private BigDecimal amountAfterExchange;
+    private String amountAfterExchange;
 
     @Enumerated(EnumType.STRING)
     private UserCurrencyStatus userCurrencyStatus;
 
-    public UserCurrency(User user, Currency currency, Long cost, BigDecimal divide) {
+    public UserCurrency(User user, Currency currency, Long cost, String stringResult) {
         this.user = user;
         this.currency = currency;
         this.amountIntKrw = cost;
-        this.amountAfterExchange = divide;
+        this.amountAfterExchange = stringResult;
         this.userCurrencyStatus = UserCurrencyStatus.NORMAL;
     }
 

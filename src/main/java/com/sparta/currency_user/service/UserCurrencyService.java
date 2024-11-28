@@ -47,10 +47,12 @@ public class UserCurrencyService {
 
         // 만약 달러보다 가치가 낮으면 곱하기 100을 수행
         if (isValuableThanUSD < 0) {
-            result = result.multiply(new BigDecimal(100));
+            result = result.multiply(new BigDecimal(100)).setScale(0, RoundingMode.FLOOR);
         }
 
-        UserCurrency userCurrency = new UserCurrency(findUser, findCurrency, requestDto.getCost(), result);
+        String stringResult = result + findCurrency.getSymbol();
+        UserCurrency userCurrency
+                = new UserCurrency(findUser, findCurrency, requestDto.getCost(), stringResult);
 
         userCurrencyRepository.save(userCurrency);
     }

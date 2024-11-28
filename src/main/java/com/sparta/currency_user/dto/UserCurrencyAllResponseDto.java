@@ -3,8 +3,6 @@ package com.sparta.currency_user.dto;
 import com.sparta.currency_user.entity.UserCurrency;
 import lombok.Getter;
 
-import java.math.BigDecimal;
-
 import java.time.LocalDateTime;
 
 @Getter
@@ -14,7 +12,7 @@ public class UserCurrencyAllResponseDto {
     private final String userName;
     private final String toCurrencyName;
     private final Long amountInKrw;
-    private final BigDecimal amountAfterExchange;
+    private final String amountAfterExchange;
     private final LocalDateTime createAt;
     private final LocalDateTime updateAt;
 
