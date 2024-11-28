@@ -16,11 +16,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     public UserResponseDto findById(Long id) {
-        return new UserResponseDto(findUserById(id));
-    }
-
-    public User findUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+        return new UserResponseDto(userRepository.findUser(id));
     }
 
     public List<UserResponseDto> findAll() {
@@ -35,8 +31,7 @@ public class UserService {
 
     @Transactional
     public void deleteUserById(Long id) {
-        this.findUserById(id);
+        userRepository.findUser(id);
         userRepository.deleteById(id);
     }
-
 }

@@ -1,9 +1,10 @@
 package com.sparta.currency_user.controller;
 
-import com.sparta.currency_user.dto.StatusAndMessageResponseDto;
+import com.sparta.currency_user.dto.StatusCodeMessageResponseDto;
 import com.sparta.currency_user.dto.UserCurrencyAllResponseDto;
 import com.sparta.currency_user.dto.UserCurrencyRequestDto;
 import com.sparta.currency_user.service.UserCurrencyService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +20,10 @@ public class UserCurrencyController {
     private final UserCurrencyService userCurrencyService;
 
     @PostMapping
-    public ResponseEntity<StatusAndMessageResponseDto> requestCurrencyExchange (@RequestBody UserCurrencyRequestDto requestDto) {
+    public ResponseEntity<StatusCodeMessageResponseDto> requestCurrencyExchange (@Valid @RequestBody UserCurrencyRequestDto requestDto) {
         userCurrencyService.requestExchange(requestDto);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new StatusAndMessageResponseDto(HttpStatus.CREATED,"환전 요청 완료"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new StatusCodeMessageResponseDto(HttpStatus.CREATED,"환전 요청 완료"));
     }
 
     @GetMapping("users/{userId}")
@@ -33,10 +34,10 @@ public class UserCurrencyController {
     }
 
     @PatchMapping("/{userCurrencyId}")
-    public ResponseEntity<StatusAndMessageResponseDto> cancelledRequest (@PathVariable Long userCurrencyId) {
+    public ResponseEntity<StatusCodeMessageResponseDto> cancelledRequest (@PathVariable Long userCurrencyId) {
         userCurrencyService.cancelledRequest(userCurrencyId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new StatusAndMessageResponseDto(HttpStatus.NO_CONTENT, "취소 요청 완료"));
+        return ResponseEntity.status(HttpStatus.OK).body(new StatusCodeMessageResponseDto(HttpStatus.NO_CONTENT, "취소 요청 완료"));
     }
 
 }

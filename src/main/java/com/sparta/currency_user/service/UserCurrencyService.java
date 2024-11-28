@@ -29,8 +29,7 @@ public class UserCurrencyService {
 
     @Transactional
     public void requestExchange(UserCurrencyRequestDto requestDto) {
-        User findUser = userRepository.findById(requestDto.getUserId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "찾을 수 없음"));
+        User findUser = userRepository.findUser(requestDto.getUserId());
 
         Currency findCurrency = currencyRepository.findCurrencyByCurrencyName(requestDto.getCurrencyName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "찾을 수 없음"));
@@ -45,8 +44,7 @@ public class UserCurrencyService {
     }
 
     public List<UserCurrencyAllResponseDto> findUserCurrencyRequest(Long userId) {
-        User findUser = userRepository.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "찾을 수 없음"));
+        User findUser = userRepository.findUser(userId);
 
         List<UserCurrency> userCurrencyList = userCurrencyRepository.findUserCurrencyByUser(findUser);
 
