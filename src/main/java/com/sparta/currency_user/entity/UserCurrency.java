@@ -27,6 +27,19 @@ public class UserCurrency extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private UserCurrencyStatus userCurrencyStatus;
 
+    public UserCurrency(User user, Currency currency, Long cost, BigDecimal divide) {
+        this.user = user;
+        this.currency = currency;
+        this.amountIntKrw = cost;
+        this.amountAfterExchange = divide;
+        this.userCurrencyStatus = UserCurrencyStatus.NORMAL;
+    }
+
+    public void updateUserCurrencyStatus () {
+        this.userCurrencyStatus = UserCurrencyStatus.CANCELLED;
+    }
+
     public UserCurrency() {
+
     }
 }
