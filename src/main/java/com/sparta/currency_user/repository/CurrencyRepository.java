@@ -11,7 +11,9 @@ import java.util.Optional;
 @Repository
 public interface CurrencyRepository extends JpaRepository<Currency, Long> {
 
+    // 통화이름으로 찾기
     Optional<Currency> findCurrencyByCurrencyName(String currencyName);
 
+    // @PostConstruct 를 통해 환전 테이블을 조회하고 이상한 레코드 조회
     List<Currency> findCurrencyByExchangeRateLessThanEqual(BigDecimal exchangeRate);
 }

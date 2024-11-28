@@ -26,6 +26,7 @@ public class GlobalExceptionHandler extends RuntimeException {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDtoList);
     }
 
+    // ResponseStatusException 에 따른 예외처리
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<StatusCodeMessageResponseDto> handleIllegalArgumentExceptions(ResponseStatusException ex) {
         StatusCodeMessageResponseDto responseDto = new StatusCodeMessageResponseDto(ex);

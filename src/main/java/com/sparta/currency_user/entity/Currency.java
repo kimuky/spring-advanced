@@ -1,9 +1,6 @@
 package com.sparta.currency_user.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.math.BigDecimal;
@@ -16,7 +13,9 @@ public class Currency {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String currencyName;
+
     private BigDecimal exchangeRate;
     private String symbol;
 
