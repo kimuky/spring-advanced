@@ -29,7 +29,7 @@ public class UserCurrencyService {
 
     // 환전 요청
     @Transactional
-    public void requestExchange(UserCurrencyRequestDto requestDto) {
+    public String requestExchange(UserCurrencyRequestDto requestDto) {
         User findUser = userRepository.findUser(requestDto.getUserId());
 
         Currency findUsdCurrency = currencyRepository.findCurrencyByCurrencyName("USD")
@@ -52,9 +52,10 @@ public class UserCurrencyService {
 
         String stringResult = result + findCurrency.getSymbol();
         UserCurrency userCurrency
-                = new UserCurrency(findUser, findCurrency, requestDto.getCost(), stringResult);
+                = new UserCurrency(findUser, findCurrency, requestDto.getCost(), result);
 
         userCurrencyRepository.save(userCurrency);
+        return stringResult;
     }
 
     // 유저 id 를 이용해 유저가 신청한 모든 환전 요청 조회

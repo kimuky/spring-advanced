@@ -23,9 +23,9 @@ public class UserCurrencyController {
     // 환전 요청
     @PostMapping
     public ResponseEntity<StatusCodeMessageResponseDto> requestCurrencyExchange (@Valid @RequestBody UserCurrencyRequestDto requestDto) {
-        userCurrencyService.requestExchange(requestDto);
+        String predicateResult = userCurrencyService.requestExchange(requestDto);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new StatusCodeMessageResponseDto(HttpStatus.CREATED,"환전 요청 완료"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new StatusCodeMessageResponseDto(HttpStatus.CREATED,predicateResult+" 환전 요청 완료"));
     }
 
     // 유저 id 에 따른 요청 조회
