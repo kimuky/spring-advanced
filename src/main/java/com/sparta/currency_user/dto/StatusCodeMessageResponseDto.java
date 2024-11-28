@@ -7,16 +7,16 @@ import org.springframework.web.server.ResponseStatusException;
 @Getter
 public class StatusCodeMessageResponseDto {
 
-    private final String statusCode;
+    private final int statusCode;
     private final String message;
 
     public StatusCodeMessageResponseDto(HttpStatus created, String message) {
-        this.statusCode = created.name();
+        this.statusCode = created.value();
         this.message = message;
     }
 
     public StatusCodeMessageResponseDto(ResponseStatusException error) {
-        this.statusCode = String.valueOf(error.getStatusCode().value());
+        this.statusCode = error.getStatusCode().value();
         this.message = error.getReason();
     }
 }
