@@ -1,6 +1,7 @@
 package com.sparta.currency_user.service;
 
 import com.sparta.currency_user.dto.UserCurrencyAllResponseDto;
+import com.sparta.currency_user.dto.UserCurrencyCountTotalResponseDto;
 import com.sparta.currency_user.dto.UserCurrencyRequestDto;
 import com.sparta.currency_user.entity.Currency;
 import com.sparta.currency_user.entity.User;
@@ -43,12 +44,26 @@ public class UserCurrencyService {
         userCurrencyRepository.save(userCurrency);
     }
 
+    @Transactional
     public List<UserCurrencyAllResponseDto> findUserCurrencyRequest(Long userId) {
         User findUser = userRepository.findUser(userId);
 
         List<UserCurrency> userCurrencyList = userCurrencyRepository.findUserCurrencyByUser(findUser);
 
         return userCurrencyList.stream().map(UserCurrencyAllResponseDto::new).toList();
+    }
+
+    public List<UserCurrencyCountTotalResponseDto> findUserCurrencyRequestAll() {
+
+        return userCurrencyRepository.findCustomAll();
+    }
+
+    @Transactional
+    public UserCurrencyCountTotalResponseDto findUserCurrencyRequestByUser(Long userId) {
+        User findUser = userRepository.findUser(userId);
+
+
+        return userCurrencyRepository.findCustomByUser(findUser);
     }
 
     @Transactional
@@ -58,4 +73,7 @@ public class UserCurrencyService {
 
         userCurrency.updateUserCurrencyStatus();
     }
+
+
+
 }
