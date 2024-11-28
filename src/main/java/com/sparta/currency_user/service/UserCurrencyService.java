@@ -33,9 +33,9 @@ public class UserCurrencyService {
         User findUser = userRepository.findUser(requestDto.getUserId());
 
         Currency findUsdCurrency = currencyRepository.findCurrencyByCurrencyName("USD")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "찾을 수 없음"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "미국 환전 레코드 찾을 수 없음"));
         Currency findCurrency = currencyRepository.findCurrencyByCurrencyName(requestDto.getCurrencyName())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "찾을 수 없음"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "환전 원하는 레코드 찾을 수 없음"));
 
         // 비율과 유저가 원하는 금액을 BigDecimal
         BigDecimal exchangeRate = findCurrency.getExchangeRate();

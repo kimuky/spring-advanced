@@ -19,6 +19,11 @@ public class InitialLogger {
 
     @PostConstruct
     private void init() {
+        // 단지 로그를 편하게 보기위함 (테스트용) - 실제는 지워야하지만 편의상
+        currencyRepository.save(new Currency("USD", BigDecimal.valueOf(1430), "$"));
+        currencyRepository.save(new Currency("TEST1", BigDecimal.valueOf(-0.10), "%"));
+        currencyRepository.save(new Currency("TEST2", BigDecimal.valueOf(0), "_"));
+
         List<Currency> currencyList = currencyRepository.findCurrencyByExchangeRateLessThanEqual(new BigDecimal(0));
 
         for (Currency c : currencyList) {
