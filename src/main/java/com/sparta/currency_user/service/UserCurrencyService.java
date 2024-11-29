@@ -33,9 +33,10 @@ public class UserCurrencyService {
         User findUser = userRepository.findUser(requestDto.getUserId());
 
         Currency findUsdCurrency = currencyRepository.findCurrencyByCurrencyName("USD")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "미국 환전 레코드 찾을 수 없음"));
+                .orElseThrow(() -> new ResponseStatusException (HttpStatus.NOT_FOUND, "달러 환율을 찾을 수 없습니다"));
         Currency findCurrency = currencyRepository.findCurrencyByCurrencyName(requestDto.getCurrencyName())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "환전 원하는 레코드 찾을 수 없음"));
+                .orElseThrow(() -> new ResponseStatusException (HttpStatus.NOT_FOUND, "환율 이름으로 환율을 찾을 수 없습니다"));
+
 
         // 비율과 유저가 원하는 금액을 BigDecimal
         BigDecimal exchangeRate = findCurrency.getExchangeRate();
@@ -50,12 +51,13 @@ public class UserCurrencyService {
             result = result.multiply(new BigDecimal(100)).setScale(0, RoundingMode.FLOOR);
         }
 
-        String stringResult = result + findCurrency.getSymbol();
+        // 환전 요청 저장
         UserCurrency userCurrency
                 = new UserCurrency(findUser, findCurrency, requestDto.getCost(), result);
-
         userCurrencyRepository.save(userCurrency);
-        return stringResult;
+
+        // 환전 요청 후 금액에 심볼을 붙힘
+        return result + findCurrency.getSymbol();
     }
 
     // 유저 id 를 이용해 유저가 신청한 모든 환전 요청 조회

@@ -16,4 +16,5 @@ public interface CurrencyRepository extends JpaRepository<Currency, Long> {
 
     // @PostConstruct 를 통해 환전 테이블을 조회하고 이상한 레코드 조회
     List<Currency> findCurrencyByExchangeRateLessThanEqual(BigDecimal exchangeRate);
+
 }
