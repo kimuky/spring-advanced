@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    // 호출되는 곳이 많아서 default 로 설정
     default User findUser (Long id ) {
         return findById(id).orElseThrow(()
                 -> new ResponseStatusException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없음"));
